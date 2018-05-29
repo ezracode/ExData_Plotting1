@@ -4,14 +4,14 @@ rm(list = ls())
 
 MyData <- read.csv(file="../household_power_consumption.txt", header=TRUE, sep=";", stringsAsFactors=FALSE)
 
+MyData <- read.csv(file="../household_power_consumption.txt", header=TRUE, sep=";", stringsAsFactors=FALSE, na.strings = "?")
+
 MyData2 <- filter(MyData, 
-(as.Date(MyData$Date, "%m/%d/%Y") == as.Date("2/1/2007", "%m/%d/%Y") | 
- as.Date(MyData$Date, "%m/%d/%Y") == as.Date("2/2/2007", "%m/%d/%Y") ) & 
-Global_active_power != "?" &
-as.numeric(Global_active_power) > 0
+(as.Date(MyData$Date, "%d/%m/%Y") == as.Date("1/2/2007", "%d/%m/%Y") | 
+ as.Date(MyData$Date, "%d/%m/%Y") == as.Date("2/2/2007", "%d/%m/%Y") ) 
 )
 
-MyData2$datetime <- strptime(paste(MyData2$Date, MyData2$Time), "%m/%d/%Y %H:%M:%S")
+MyData2$datetime <- strptime(paste(MyData2$Date, MyData2$Time), "%d/%m/%Y %H:%M:%S")
 
 png(filename = "plot3.png",
     width = 480, height = 480, units = "px", pointsize = 12)
@@ -20,7 +20,8 @@ png(filename = "plot3.png",
         type = "l", 
         ylab = "Energy sub metering", 
         xlab = "",
-        col = "maroon3"
+        col = "maroon3",
+        ylim = c(1, 30)
      )
     points(y = as.numeric(MyData2$Sub_metering_2), x = MyData2$datetime, type = "l", col = "red")
     points(y = as.numeric(MyData2$Sub_metering_1), x = MyData2$datetime, type = "l", col = "blue")
