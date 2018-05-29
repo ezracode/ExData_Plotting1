@@ -32,7 +32,7 @@ png(filename = "plot4.png",
      )
     points(y = as.numeric(MyData2$Sub_metering_2), x = MyData2$datetime, type = "l", col = "red")
     points(y = as.numeric(MyData2$Sub_metering_1), x = MyData2$datetime, type = "l", col = "blue")
-    legend("left", 
+    legend("topright", 
     legend = c("Sub metering 1", "Sub metering 2", "Sub metering 3"), 
     col = c("blue", "red", "maroon3"),
     lty=1:3, cex=0.8
